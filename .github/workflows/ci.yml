@@ -1,0 +1,67 @@
+name: LMS C++17 Build and Tests
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  linux:
+    name: Ubuntu CMake and CTest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y cmake g++ libsqlite3-dev libssl-dev gcovr
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON -DLMS_COVERAGE=ON -DLMS_CATCH2_TESTS=ON
+      - name: Build
+        run: cmake --build build --parallel 2
+      - name: Test
+        run: ctest --test-dir build --output-on-failure
+      - name: Business logic coverage
+        run: |
+          gcovr --root . --filter 'src/service.cpp' --filter 'src/security.cpp' --filter 'src/repository.cpp' --filter 'src/db.cpp' --exclude 'build/_deps/' --print-summary --xml-pretty -o coverage.xml --html-details -o coverage.html
+          gcovr --root . --filter 'src/service.cpp' --filter 'src/security.cpp' --filter 'src/repository.cpp' --filter 'src/db.cpp' --fail-under-line 70 --print-summary
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lms-gate3-coverage
+          path: |
+            coverage.xml
+            coverage.html
+            coverage.*.html
+          if-no-files-found: warn
+  windows:
+    name: Windows 11 compatible UCRT64 build
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-cmake
+            mingw-w64-ucrt-x86_64-ninja
+            mingw-w64-ucrt-x86_64-sqlite3
+            mingw-w64-ucrt-x86_64-openssl
+      - name: Configure
+        run: cmake -S . -B build-ci -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON
+      - name: Build
+        run: cmake --build build-ci --parallel 2
+      - name: Test
+        run: ctest --test-dir build-ci --output-on-failure
+      - name: Upload Windows executable (not standalone)
+        uses: actions/upload-artifact@v4
+        with:
+          name: lms-windows-ucrt64-executable
+          path: |
+            build-ci/lms.exe
+            build-ci/sql/schema.sql
+          if-no-files-found: error
