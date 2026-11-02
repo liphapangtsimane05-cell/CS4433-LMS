@@ -1,0 +1,12 @@
+[ 11%] Building CXX object CMakeFiles/lms_core.dir/src/security.cpp.o
+[ 22%] Building CXX object CMakeFiles/lms_core.dir/src/repository.cpp.o
+[ 44%] Building CXX object CMakeFiles/lms_core.dir/src/service.cpp.o
+[ 44%] Building CXX object CMakeFiles/lms_core.dir/src/db.cpp.o
+[ 55%] Linking CXX static library liblms_core.a
+[ 55%] Built target lms_core
+[ 66%] Building CXX object CMakeFiles/lms_tests.dir/tests/smoke.cpp.o
+[ 77%] Building CXX object CMakeFiles/lms.dir/src/main.cpp.o
+[ 88%] Linking CXX executable lms_tests
+[100%] Linking CXX executable lms
+[100%] Built target lms_tests
+[100%] Built target lms

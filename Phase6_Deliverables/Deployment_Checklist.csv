@@ -1,0 +1,11 @@
+item,status,evidence_or_notes
+Approved source commit,Pending,Record full SHA
+Independent peer review,Pending,Reviewer signature and comments
+Linux local Release build,Pass,Evidence/build.txt
+Local CTest,Pass,Evidence/ctest.txt
+GitHub Windows CI run,Pass,Run 41427178989 previously confirmed
+Windows runtime DLL packaging,Pending,Inventory required dependencies
+Target Windows launch,Pending,Screenshot and hostname
+SQLite backup/restore drill,Pending,Record trial results
+Stakeholder release approval,Pending,Signoff
+Git v1.0 tag/release,Pending,Publish only after approval

@@ -1,0 +1,8 @@
+Internal ctest changing into directory: /mnt/data/phase6_work/build
+Test project /mnt/data/phase6_work/build
+    Start 1: LMS_Business_Workflows
+1/1 Test #1: LMS_Business_Workflows ...........   Passed    1.22 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   1.22 sec
