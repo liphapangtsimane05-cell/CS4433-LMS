@@ -1,0 +1,12 @@
+CS4433 LMS - GitHub upload instructions
+
+1. Open https://github.com/new and create a private repository named CS4433-LMS (do not initialize README).
+2. Extract THIS ZIP locally. IMPORTANT: the repository ROOT must contain CMakeLists.txt and the hidden .github folder.
+3. In the empty GitHub repository choose 'uploading an existing file'. Upload the unzipped source files and folders, preserving .github/workflows/ci.yml. Do NOT upload lms.db or any real users' data.
+   If GitHub's browser upload does not preserve hidden folders, use Git CLI instead:
+   git init; git add .; git commit -m "Add LMS CI and tests"; git branch -M main; git remote add origin https://github.com/YOUR_USERNAME/CS4433-LMS.git; git push -u origin main
+4. Go to Actions > LMS C++17 Build and Tests. Check both jobs; for manual execution choose Run workflow.
+5. Download coverage artifact; save screenshots of workflow and CTest logs. GitHub execution is NOT verified until the workflow completes.
+6. The Windows build artifact is not standalone and may need MSYS2 runtime DLLs.
+
+SECURITY: Never commit real SQLite student records, passwords, secrets, or private data.
