@@ -1,0 +1,9 @@
+PHASE 8 / CR1 v1.1
+1. Back up original application and data/lms.db BEFORE doing anything.
+2. Build source with CMake and SQLite3/OpenSSL dependencies.
+3. For an existing v1.0 SQLite database, run the SQL file sql/migrations/001_cr1_class_extensions.sql ONCE using a SQLite client. Do not delete original data.
+4. For a new database, use sql/schema.sql (already incorporates v1.1).
+5. Start LMS; lecturer menu option 8 extends a whole-class deadline.
+6. Verify students' assignment list (option 2) shows effective revised date.
+7. Retest all core workflows; record Windows results before production release.
+NOTE: Updating program files alone cannot migrate an existing database. Do not claim v1.1 deployed until migration and Windows tests are complete.

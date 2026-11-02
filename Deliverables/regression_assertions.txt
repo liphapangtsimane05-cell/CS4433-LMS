@@ -1,0 +1,1 @@
+PASS: 50 LMS integration/security assertions; 1/1 CTest suite passed on Linux. Windows executable and GitHub v1.1 CI run not yet verified.

@@ -1,0 +1,1 @@
+PASS: in-memory v1.0 schema upgraded to v1.1; original user row preserved; class_extensions table created.

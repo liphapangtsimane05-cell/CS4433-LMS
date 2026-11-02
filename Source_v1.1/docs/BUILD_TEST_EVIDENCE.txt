@@ -1,0 +1,56 @@
+CS4433 — Phase 4 Local Build and Test Evidence
+Date: 21 October 2026
+Platform: Linux (container-based build, not representative school hardware)
+Compiler: 
+g++ (Debian 14.2.0-19) 14.2.0
+CMake version: cmake version 3.31.6
+SQLite version: 3.46.1
+OpenSSL version: 3.5.7
+
+$ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /mnt/data/CS4433_Week4_Implementation/build
+
+$ cmake --build build -j4
+[ 55%] Built target lms_core
+[ 88%] Built target lms_tests
+[ 77%] Building CXX object CMakeFiles/lms.dir/src/main.cpp.o
+[100%] Linking CXX executable lms
+[100%] Built target lms
+
+$ ctest --test-dir build --output-on-failure
+Internal ctest changing into directory: /mnt/data/CS4433_Week4_Implementation/build
+Test project /mnt/data/CS4433_Week4_Implementation/build
+    Start 1: LMS_Business_Workflows
+1/1 Test #1: LMS_Business_Workflows ...........   Passed    0.63 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.64 sec
+
+$ ./build/lms_tests
+PASS: 39 LMS integration and security assertions
+
+$ ./build/lms --db /tmp/cs4433_cli_init_test.db --schema sql/schema.sql (scripted local login)
+CS4433 Moderated Learning Management System (offline SQLite)
+
+1 Login | 0 Exit
+Action: Username: Password: Signed in as firstadmin (ADMIN)
+
+ADMIN | 1 Departments  2 Users  3 Courses  4 Assign lecturer  5 Enrol student
+        6 Update user  7 Deactivate  8 Reset password  9 Update course
+       10 View users  11 View courses  12 View departments  13 Update department  14 View enrolments  0 Logout
+Action: (No records)
+
+ADMIN | 1 Departments  2 Users  3 Courses  4 Assign lecturer  5 Enrol student
+        6 Update user  7 Deactivate  8 Reset password  9 Update course
+       10 View users  11 View courses  12 View departments  13 Update department  14 View enrolments  0 Logout
+Action: Logged out
+
+1 Login | 0 Exit
+Action: Goodbye
+
+Database inspection via sqlite3: 12 application tables and 21 foreign-key references.
+First-admin stored password string begins with pbkdf2_sha256, not plaintext.
+NOT RUN: hosted GitHub Actions build, school-hardware performance, formal Week 5 test suite/coverage.
